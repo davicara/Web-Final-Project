@@ -767,6 +767,22 @@ video {
   height: 1000px;
 }
 
+.h-10 {
+  height: 2.5rem;
+}
+
+.h-16 {
+  height: 4rem;
+}
+
+.h-14 {
+  height: 3.5rem;
+}
+
+.h-12 {
+  height: 3rem;
+}
+
 .max-h-4 {
   max-height: 1rem;
 }
