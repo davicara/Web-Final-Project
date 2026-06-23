@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    const submitForm = document.getElementById("submit");
+    const form = document.getElementById("contact_form");
     const errorMessage = document.getElementById("error_message");
     const errorName = document.getElementById("error_name");
     const errorEmail = document.getElementById("error_email");
 
-    submitForm.addEventListener("submit", function (e) {
+    form.addEventListener("submit", function (e) {
         e.preventDefault();
 
         errorEmail.textContent = "";
@@ -15,17 +15,21 @@ document.addEventListener("DOMContentLoaded", () => {
         let name = document.getElementById("name_box").value.trim();
         let email = document.getElementById("email_box").value.trim();
         let message = document.getElementById("message_box").value.trim();
+        let nameRegex = /^[A-Za-z\s]{2,50}$/;
+        let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        let messageRegex = /^.{10,500}$/;
 
         let isValid = true;
 
-        // Validate Name
         if (name === '') {
             errorName.textContent = 'Name is required';
             isValid = false;
         }
+        else if (!nameRegex.test(name)) {
+            errorName.textContent = 'Valid name is required';
+            isValid = false;
+        }
 
-        // Validate Email using Regex
-        let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (email === '') {
             errorEmail.textContent = 'Email is required';
             isValid = false;
@@ -34,16 +38,17 @@ document.addEventListener("DOMContentLoaded", () => {
             isValid = false;
         }
 
-        // Validate Message
         if (message === '') {
             errorMessage.textContent = 'Message cannot be empty';
             isValid = false;
         }
-
-        if (isValid) {
-            alert('Form submitted successfully!');
-            // Here you can send data to server
+        else if (!messageRegex.test(message)) {
+            errorMessage.textContent = 'Enter a valid message';
+            isValid = false;
         }
 
+        if (isValid && !emailRegex.test(email)) {
+            alert('Form submitted successfully!');
+        }
     });
 });
